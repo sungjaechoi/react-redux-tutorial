@@ -5,7 +5,7 @@ const TOGGLE = 'todos/TOGGLE' //todo를 체크/체크 해제함
 const REMOVE = 'todos/REMOVE' //todo를 제거함
 
 //액션 생성 함수(Action Creator) 만들기
-export const change_input = input => ({
+export const changeInput = input => ({
   type : CHANGE_INPUT,
   input
 })
