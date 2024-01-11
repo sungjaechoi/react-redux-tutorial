@@ -6,6 +6,7 @@ const CounterContainer = ({number, increase, decrease}) => {
   return <Counter number={number} onIncrease={increase} onDecrease={decrease}/>
 };
 
+// 가장 기본적인 작성법
 const mapStateToProps = state =>({
   number:state.counter.number
 })
