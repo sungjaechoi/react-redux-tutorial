@@ -7,13 +7,13 @@ const REMOVE = 'todos/REMOVE' //todo를 제거함
 //액션 생성 함수(Action Creator) 만들기
 export const changeInput = input => ({
   type : CHANGE_INPUT,
-  input
+  payload:input
 })
 
 let id = 3; // insert가 호출될 떄마다 1씩 더해집니다.
 export const insert = text => ({
   type: INSERT,
-  todo: {
+  payload: {
     id:id++,
     text,
     done:false
@@ -22,12 +22,12 @@ export const insert = text => ({
 
 export const toggle = id => ({
   type: TOGGLE,
-  id
+  payload: id,
 })
 
 export const remove = id =>({
   type: REMOVE,
-  id
+  payload: id
 })
 
 // 초기 상태값 정의하기
@@ -52,24 +52,27 @@ function todos(state = initialState, action){
     case CHANGE_INPUT:
       return{
         ...state,
-        input : action.input
+        input: action.payload
       }
     case INSERT:
       return{
         ...state,
-        todos: state.todos.concat(action.todo)
+        todos: [
+          ...state.todos,
+          action.payload
+        ]
       }
     case TOGGLE:
       return{
         ...state,
         todos: state.todos.map(todo =>
-          todo.id === action.id ? {...todo, done: !todo.done} : todo
+          todo.id === action.payload ? {...todo, done: !todo.done} : todo
         )
       }
     case REMOVE:
       return {
         ...state,
-        todos: state.todos.filter(todo => todo.id !== action.id)
+        todos: state.todos.filter(todo => todo.id !== action.payload)
       };
       default:
         return state;
