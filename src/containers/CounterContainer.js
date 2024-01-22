@@ -1,22 +1,31 @@
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
+//connect 함수 대신 useSelector, useDispatch redux-Hook사용
+import { useDispatch, useSelector } from 'react-redux';
 import Counter from '../components/Counter'; 
 import { increase, decrease } from "../modules/counter";
 
-const CounterContainer = ({number, increase, decrease}) => {
-  return <Counter number={number} onIncrease={increase} onDecrease={decrease}/>
+const CounterContainer = () => {
+  const number = useSelector(state => state.counter.number)
+  //여기서 state는 Redux 스토어의 전체 상태를 의미
+  const dispatch = useDispatch();
+  const onIncrease = () =>dispatch(increase())
+  const onDecrease = () =>dispatch(decrease())
+  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease}/>
 };
 
-const mapStateToProps = state =>({
-  number:state.counter.number
-})
+export default CounterContainer
 
-const mapDispatchToProps = dispatch =>({
-  increase: () => {
-    dispatch(increase())
-  },
-  decrease: () => {
-    dispatch(decrease())
-  }
-})
+// const mapStateToProps = state =>({
+//   number:state.counter.number
+// })
 
-export default connect(mapStateToProps,mapDispatchToProps)(CounterContainer)
+// const mapDispatchToProps = dispatch =>({
+//   increase: () => {
+//     dispatch(increase())
+//   },
+//   decrease: () => {
+//     dispatch(decrease())
+//   }
+// })
+
+// export default connect(mapStateToProps,mapDispatchToProps)(CounterContainer)
